@@ -1,0 +1,205 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">User management system</a>
+      <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+              data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <button class="btn btn-outline-success" data-bs-target="#addUser" data-bs-toggle="modal" type="submit">Add
+          User
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="alert alert-success" id="add-success-alert" role="alert">
+    User successfully added!
+  </div>
+  <div class="alert alert-success" id="update-success-alert" role="alert">
+    User successfully updated!
+  </div>
+  <div class="alert alert-success" id="delete-success-alert" role="alert">
+    User successfully deleted!
+  </div>
+  <!-- Add user modal -->
+  <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="addUser" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add new user</h5>
+          <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="userDetail">
+            <div class="mb-3">
+              <label class="form-label">First Name</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="firstName"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Last Name</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="lastName"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">User name</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="userName"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="password"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email address</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="email"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Status</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="status"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Permission</label>
+              <select formControlName="permissionId">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+              <button (click)="addUser()" class="btn btn-primary" data-bs-dismiss="modal" type="button">Save user
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit user modal -->
+  <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="editUserModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="userDetail">
+            <div class="mb-3">
+              <label class="form-label">First Name</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="firstName" id="nameInput"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Last Name</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="lastName" id="lastnameInput"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">User name</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="userName" id="usernameInput"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="password" id="passwordInput"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email address</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="emailInput"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Status</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="status" id="statusInput"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Permission</label>
+              <select formControlName="permissionId">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+              <button (click)="updateUser()" class="btn btn-primary" data-bs-dismiss="modal" type="button">Save
+                changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete user modal -->
+  <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteUserModal"
+       tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete user?</h5>
+          <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this user?
+          <form [formGroup]="userDetail"></form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+          <button  class="btn btn-primary" data-bs-target="#deleteUserModal" data-bs-toggle="modal"
+                   type="button" (click)="deleteUser()">Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">Password hash</th>
+      <th scope="col">Status</th>
+      <th scope="col">Options</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of userList">
+      <th>{{user.id}}</th>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.userName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.password | slice:0:5}}</td>
+      <td>{{user.status}}</td>
+      <td>
+        <button (click)="editUser(user)" class="btn btn-success me-1" data-bs-target="#editUserModal" data-bs-toggle="modal"
+                type="button">Edit
+        </button>
+        <button class="btn btn-danger me-1" data-bs-target="#deleteUserModal"
+                data-bs-toggle="modal" type="button" (click)="prepareDelete(user)">Delete
+        </button>
+        <button class="btn btn-primary me-1" type="button">Assign</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
