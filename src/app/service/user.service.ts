@@ -7,20 +7,24 @@ import {User} from "../model/user";
   providedIn: 'root'
 })
 export class UserService {
-  readonly taskApiUrl="https://localhost:7097/api/User";
+  readonly taskApiUsersUrl="https://localhost:7097/api/v1/User";
+  readonly taskApiPermissionsUrl="https://localhost:7097/api/v1/Permission";
   constructor(private http: HttpClient) { }
 
   addUser(user : User):Observable<User>{
-    return this.http.post<User>(this.taskApiUrl,user);
+    return this.http.post<User>(this.taskApiUsersUrl,user);
   }
 
   getAllUsers() {
-    return this.http.get<User[]>(this.taskApiUrl);
+    return this.http.get<User[]>(this.taskApiUsersUrl);
   }
   updateUser(id:number,user : User){
-    return this.http.put<User>(this.taskApiUrl+`/${id}`,user);
+    return this.http.put<User>(this.taskApiUsersUrl+`/${id}`,user);
   }
   deleteUser(id:number){
-    return this.http.delete<User>(this.taskApiUrl+`/${id}`);
+    return this.http.delete<User>(this.taskApiUsersUrl+`/${id}`);
+  }
+  getAllPermissions():Observable<any[]>{
+    return this.http.get<any>(this.taskApiPermissionsUrl);
   }
 }

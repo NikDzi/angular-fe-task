@@ -9,14 +9,17 @@ import {UserService} from "../../service/user.service";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  p:number=1;
   userDetail!: FormGroup;
   userObject : User = new User();
   userList : User[]=[];
+  permissionList:any=[];
+  permissionListMap:Map<number,string> = new Map();
   constructor(private formBuilder : FormBuilder,private userService:UserService) { }
 
   ngOnInit(): void {
     this.getAllUsers();
-
+    this.getAllPermissions();
     this.userDetail = this.formBuilder.group({
       id:[''],
       firstName:[""],
@@ -28,7 +31,15 @@ export class DashboardComponent implements OnInit {
       permissionId:[""],
     })
   }
-
+  getAllPermissions(){
+    this.userService.getAllPermissions().subscribe(res=>{
+      console.log(res);
+      this.permissionList=res;
+      for (let i =0;i<res.length;i++){
+        this.permissionListMap.set(this.permissionList[i].id,this.permissionList[i].code);
+      }
+    })
+  }
   getAllUsers(){
     this.userService.getAllUsers().subscribe(res=>{
       this.userList=res;
@@ -71,6 +82,7 @@ export class DashboardComponent implements OnInit {
     this.userDetail.controls['email'].setValue(user.email);
     this.userDetail.controls['password'].setValue(user.password);
     this.userDetail.controls['status'].setValue(user.status);
+    this.userDetail.controls['permissionId'].setValue(user.permissionId);
   }
 
   updateUser() {
@@ -82,6 +94,7 @@ export class DashboardComponent implements OnInit {
     this.userObject.email=this.userDetail.value.email;
     this.userObject.status=this.userDetail.value.status;
     this.userObject.permissionId=this.userDetail.value.permissionId;
+    console.log(this.userObject);
     this.userService.updateUser(this.userObject.id,this.userObject).subscribe(res=> {
       console.log(res);
       this.getAllUsers();

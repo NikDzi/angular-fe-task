@@ -64,10 +64,8 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Permission</label>
-              <select formControlName="permissionId">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+              <select formControlName="permissionId" style="width: 100%" >
+                <option *ngFor="let permission of permissionList" [value]="permission.id">{{permission.code}} - {{permission.description}}</option>
               </select>
             </div>
 
@@ -108,10 +106,9 @@
               <input aria-describedby="emailHelp" class="form-control" formControlName="userName" id="usernameInput"
                      type="email">
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="display: none;">
               <label class="form-label">Password</label>
-              <input aria-describedby="emailHelp" class="form-control" formControlName="password" id="passwordInput"
-                     type="email">
+              <input  class="form-control" formControlName="password" id="passwordInput">
             </div>
             <div class="mb-3">
               <label class="form-label">Email address</label>
@@ -123,15 +120,10 @@
               <input aria-describedby="emailHelp" class="form-control" formControlName="status" id="statusInput"
                      type="email">
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="display: none">
               <label class="form-label">Permission</label>
-              <select formControlName="permissionId">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-              </select>
+              <input formControlName="permissionId"  >
             </div>
-
             <div class="modal-footer">
               <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
               <button (click)="updateUser()" class="btn btn-primary" data-bs-dismiss="modal" type="button">Save
@@ -167,6 +159,64 @@
     </div>
   </div>
 
+  <!-- Assign role Modal -->
+  <div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+          <form [formGroup]="userDetail">
+            <div class="mb-3" style="display: none">
+              <label class="form-label" >First Name</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="firstName"
+                     type="email">
+            </div>
+            <div class="mb-3"style="display: none">
+              <label class="form-label" >Last Name</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="lastName"
+                     type="email">
+            </div>
+            <div class="mb-3" style="display: none">
+              <label class="form-label">User name</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="userName"
+                     type="email">
+            </div>
+            <div class="mb-3" style="display: none">
+              <label class="form-label">Password</label>
+              <input  class="form-control" formControlName="password">
+            </div>
+            <div class="mb-3" style="display: none">
+              <label class="form-label">Email address</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="email"
+                     type="email">
+            </div>
+            <div class="mb-3" style="display: none">
+              <label class="form-label">Status</label>
+              <input aria-describedby="emailHelp" class="form-control" formControlName="status"
+                     type="email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Permission</label>
+              <select formControlName="permissionId" style="width: 100%" >
+                <option *ngFor="let permission of permissionList" [value]="permission.id">{{permission.code}} - {{permission.description}}</option>
+              </select>
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+              <button (click)="updateUser()" class="btn btn-primary" data-bs-dismiss="modal" type="button">Save
+                changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <table class="table">
     <thead>
     <tr>
@@ -178,10 +228,11 @@
       <th scope="col">Password hash</th>
       <th scope="col">Status</th>
       <th scope="col">Options</th>
+      <th scope="col">Permissions</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let user of userList">
+    <tr *ngFor="let user of userList | paginate: { itemsPerPage: 10, currentPage: p }">
       <th>{{user.id}}</th>
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
@@ -191,14 +242,28 @@
       <td>{{user.status}}</td>
       <td>
         <button (click)="editUser(user)" class="btn btn-success me-1" data-bs-target="#editUserModal" data-bs-toggle="modal"
-                type="button">Edit
+                type="button"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+        </svg>
         </button>
         <button class="btn btn-danger me-1" data-bs-target="#deleteUserModal"
-                data-bs-toggle="modal" type="button" (click)="prepareDelete(user)">Delete
+                data-bs-toggle="modal" type="button" (click)="prepareDelete(user)"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+          <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+        </svg>
         </button>
-        <button class="btn btn-primary me-1" type="button">Assign</button>
+      </td>
+      <td>
+        {{this.permissionListMap.get(user.permissionId)}}
+        <button class="btn btn-primary me-1" data-bs-target="#assignModal"
+                data-bs-toggle="modal" type="button" (click)="editUser(user)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+          <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+          <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+        </svg></button>
       </td>
     </tr>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </tbody>
   </table>
 </div>

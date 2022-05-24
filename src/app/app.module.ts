@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import {HttpClientModule} from "@angular/common/http";
     DashboardComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,NgxPaginationModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule
