@@ -1,17 +1,40 @@
-#add-success-alert,#update-success-alert,#delete-success-alert{
+#add-success-alert, #update-success-alert, #delete-success-alert {
   display: none;
   position: absolute;
   animation-name: fadeInAndOut;
   animation-duration: 4s;
   left: 40%;
 }
-@-webkit-keyframes fadeInAndOut {
-  0%{opacity: 0;}
-  50%{opacity: 1;}
-  100%{opacity: 0;}
+
+tr input {
+  width: 90px;
+  display: inline;
 }
+
+th svg {
+  margin-left: 5px;
+}
+
+@-webkit-keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes fadeInAndOut {
-  0%{opacity: 0;}
-  50%{opacity: 1;}
-  100%{opacity: 0;}
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

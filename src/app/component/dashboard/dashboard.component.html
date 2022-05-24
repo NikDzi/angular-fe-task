@@ -2,7 +2,8 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand">User management system</a>
-      <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+      <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+              class="navbar-toggler"
               data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -64,8 +65,9 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Permission</label>
-              <select formControlName="permissionId" style="width: 100%" >
-                <option *ngFor="let permission of permissionList" [value]="permission.id">{{permission.code}} - {{permission.description}}</option>
+              <select formControlName="permissionId" style="width: 100%">
+                <option *ngFor="let permission of permissionList" [value]="permission.id">{{permission.code}}
+                  - {{permission.description}}</option>
               </select>
             </div>
 
@@ -108,7 +110,7 @@
             </div>
             <div class="mb-3" style="display: none;">
               <label class="form-label">Password</label>
-              <input  class="form-control" formControlName="password" id="passwordInput">
+              <input class="form-control" formControlName="password" id="passwordInput">
             </div>
             <div class="mb-3">
               <label class="form-label">Email address</label>
@@ -122,7 +124,7 @@
             </div>
             <div class="mb-3" style="display: none">
               <label class="form-label">Permission</label>
-              <input formControlName="permissionId"  >
+              <input formControlName="permissionId">
             </div>
             <div class="modal-footer">
               <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
@@ -151,8 +153,8 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-          <button  class="btn btn-primary" data-bs-target="#deleteUserModal" data-bs-toggle="modal"
-                   type="button" (click)="deleteUser()">Save changes
+          <button (click)="deleteUser()" class="btn btn-primary" data-bs-target="#deleteUserModal"
+                  data-bs-toggle="modal" type="button">Save changes
           </button>
         </div>
       </div>
@@ -160,22 +162,22 @@
   </div>
 
   <!-- Assign role Modal -->
-  <div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="assignModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
         </div>
-        <div class="modal-body" >
+        <div class="modal-body">
           <form [formGroup]="userDetail">
             <div class="mb-3" style="display: none">
-              <label class="form-label" >First Name</label>
+              <label class="form-label">First Name</label>
               <input aria-describedby="emailHelp" class="form-control" formControlName="firstName"
                      type="email">
             </div>
-            <div class="mb-3"style="display: none">
-              <label class="form-label" >Last Name</label>
+            <div class="mb-3" style="display: none">
+              <label class="form-label">Last Name</label>
               <input aria-describedby="emailHelp" class="form-control" formControlName="lastName"
                      type="email">
             </div>
@@ -186,7 +188,7 @@
             </div>
             <div class="mb-3" style="display: none">
               <label class="form-label">Password</label>
-              <input  class="form-control" formControlName="password">
+              <input class="form-control" formControlName="password">
             </div>
             <div class="mb-3" style="display: none">
               <label class="form-label">Email address</label>
@@ -200,8 +202,9 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Permission</label>
-              <select formControlName="permissionId" style="width: 100%" >
-                <option *ngFor="let permission of permissionList" [value]="permission.id">{{permission.code}} - {{permission.description}}</option>
+              <select formControlName="permissionId" style="width: 100%">
+                <option *ngFor="let permission of permissionList" [value]="permission.id">{{permission.code}}
+                  - {{permission.description}}</option>
               </select>
             </div>
 
@@ -220,19 +223,76 @@
   <table class="table">
     <thead>
     <tr>
-      <th scope="col">Id</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Username</th>
-      <th scope="col">Email</th>
+      <th scope="col" style="width:35px">
+        ID
+        <svg (click)="order('id')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
+             width="16" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+            fill-rule="evenodd"/>
+        </svg>
+      </th>
+      <th scope="col">
+        <input (ngModelChange)="SearchFirstName()" [(ngModel)]="searchFirstName" class="form-control"
+               name="firstName" placeholder="First name" type="text">
+        <svg (click)="order('firstName')" class="bi bi-arrow-down-up" fill="currentColor" height="16"
+             viewBox="0 0 16 16"
+             width="16" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+            fill-rule="evenodd"/>
+        </svg>
+      </th>
+      <th scope="col">
+        <input (input)="SearchLastName()" [(ngModel)]="searchLastName" class="form-control"
+               placeholder="Last name" type="text">
+        <svg (click)="order('lastName')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
+             width="16" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+            fill-rule="evenodd"/>
+        </svg>
+      </th>
+      <th scope="col">
+        <input (input)="SearchUserName()" [(ngModel)]="searchusername" class="form-control"
+               placeholder="User name" type="text">
+        <svg (click)="order('userName')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
+             width="16" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+            fill-rule="evenodd"/>
+        </svg>
+      </th>
+      <th scope="col">
+        <input (input)="SearchEmail()" [(ngModel)]="searchemail" class="form-control" placeholder="Email"
+               style="width: 175px" type="text">
+        <svg (click)="order('email')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
+             width="16" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+            fill-rule="evenodd"/>
+        </svg>
+      </th>
       <th scope="col">Password hash</th>
-      <th scope="col">Status</th>
+      <th scope="col">
+        <input (input)="SearchStatus()" [(ngModel)]="searchstatus" class="form-control"
+               placeholder="Status" type="text">
+        <svg (click)="order('status')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
+             width="16" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+            fill-rule="evenodd"/>
+        </svg>
+      </th>
       <th scope="col">Options</th>
       <th scope="col">Permissions</th>
     </tr>
+
     </thead>
     <tbody>
-    <tr *ngFor="let user of userList | paginate: { itemsPerPage: 10, currentPage: p }">
+    <tr *ngFor="let user of userList
+        | paginate: { itemsPerPage: 10, currentPage: p }
+        | orderBy: this.orderingHeader: isDescOrder">
       <th>{{user.id}}</th>
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
@@ -241,26 +301,42 @@
       <td>{{user.password | slice:0:5}}</td>
       <td>{{user.status}}</td>
       <td>
-        <button (click)="editUser(user)" class="btn btn-success me-1" data-bs-target="#editUserModal" data-bs-toggle="modal"
-                type="button"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-        </svg>
+        <button (click)="editUser(user)" class="btn btn-success me-1" data-bs-target="#editUserModal"
+                data-bs-toggle="modal"
+                type="button">
+          <svg class="bi bi-pencil-square" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
+               xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+            <path
+              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+              fill-rule="evenodd"/>
+          </svg>
         </button>
-        <button class="btn btn-danger me-1" data-bs-target="#deleteUserModal"
-                data-bs-toggle="modal" type="button" (click)="prepareDelete(user)"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-          <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-        </svg>
+        <button (click)="prepareDelete(user)" class="btn btn-danger me-1"
+                data-bs-target="#deleteUserModal" data-bs-toggle="modal" type="button">
+          <svg class="bi bi-trash-fill" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
+               xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+          </svg>
         </button>
       </td>
       <td>
         {{this.permissionListMap.get(user.permissionId)}}
-        <button class="btn btn-primary me-1" data-bs-target="#assignModal"
-                data-bs-toggle="modal" type="button" (click)="editUser(user)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-          <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-          <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-        </svg></button>
+        <button (click)="editUser(user)" class="btn btn-primary me-1"
+                data-bs-target="#assignModal" data-bs-toggle="modal" type="button">
+          <svg class="bi bi-clipboard-check" fill="currentColor" height="16" viewBox="0 0 16 16"
+               width="16" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+              fill-rule="evenodd"/>
+            <path
+              d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+            <path
+              d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+          </svg>
+        </button>
       </td>
     </tr>
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
