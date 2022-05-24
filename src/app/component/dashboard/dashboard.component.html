@@ -35,28 +35,33 @@
           <form [formGroup]="userDetail">
             <div class="mb-3">
               <label class="form-label">First Name</label>
-              <input aria-describedby="emailHelp" class="form-control" formControlName="firstName"
-                     type="email">
+              <input #firstnameinput aria-describedby="emailHelp" class="form-control" formControlName="firstName"
+                     type="email" required name="firstname" (keyup)="getValueForFirstName(firstnameinput.value)">
             </div>
             <div class="mb-3">
               <label class="form-label">Last Name</label>
-              <input aria-describedby="emailHelp" class="form-control" formControlName="lastName"
-                     type="email">
+              <input #lastnameinput aria-describedby="emailHelp" class="form-control" formControlName="lastName"
+                     type="email" required (keyup)="getValueForLastName(lastnameinput.value)">
             </div>
             <div class="mb-3">
               <label class="form-label">User name</label>
-              <input aria-describedby="emailHelp" class="form-control" formControlName="userName"
-                     type="email">
+              <input #usernameinput aria-describedby="emailHelp" class="form-control" formControlName="userName"
+                     type="email" required minlength="8" (keyup)="getValueForUserName(usernameinput.value)">
+              <span *ngIf="this.userObject.userName.length<8" style="color:red"> username needs to be min 8 characters</span>
+
             </div>
             <div class="mb-3">
               <label class="form-label">Password</label>
-              <input aria-describedby="emailHelp" class="form-control" formControlName="password"
-                     type="email">
+              <input #passinput aria-describedby="emailHelp" class="form-control" formControlName="password"
+                     type="email" required minlength="8" (keyup)="getValueForPassword(passinput.value)">
+              <span *ngIf="this.userObject.password.length<8" style="color:red"> password needs to be min 8 characters</span>
             </div>
             <div class="mb-3">
               <label class="form-label">Email address</label>
-              <input aria-describedby="emailHelp" class="form-control" formControlName="email"
+              <input #emailinput aria-describedby="emailHelp" class="form-control" formControlName="email"
                      type="email">
+              <span *ngIf="!emailinput.value.match(this.emailRegex)" style="color:red"> needs to be a valid email</span>
+
             </div>
             <div class="mb-3">
               <label class="form-label">Status</label>
@@ -65,15 +70,17 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Permission</label>
-              <select formControlName="permissionId" style="width: 100%">
+              <select formControlName="permissionId" style="width: 100%"  >
                 <option *ngFor="let permission of permissionList" [value]="permission.id">{{permission.code}}
                   - {{permission.description}}</option>
+                <option ngValue="0" > Select permissions </option>
               </select>
             </div>
 
             <div class="modal-footer">
               <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-              <button (click)="addUser()" class="btn btn-primary" data-bs-dismiss="modal" type="button">Save user
+              <button *ngIf="this.userObject.password.length>=8 && this.userObject.userName.length>=8 &&
+                              emailinput.value.match('@') && this.userObject.firstName.length>=2 && this.userObject.lastName.length>=2" (click)="addUser()" class="btn btn-primary" data-bs-dismiss="modal" type="button">Save user
               </button>
             </div>
           </form>
@@ -222,7 +229,7 @@
 
   <table class="table">
     <thead>
-    <tr>
+    <tr >
       <th scope="col" style="width:35px">
         ID
         <svg (click)="order('id')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
@@ -234,7 +241,7 @@
       </th>
       <th scope="col">
         <input (ngModelChange)="SearchFirstName()" [(ngModel)]="searchFirstName" class="form-control"
-               name="firstName" placeholder="First name" type="text">
+               name="firstName" placeholder="First name" type="text" (focusout)="resetSearch()">
         <svg (click)="order('firstName')" class="bi bi-arrow-down-up" fill="currentColor" height="16"
              viewBox="0 0 16 16"
              width="16" xmlns="http://www.w3.org/2000/svg">
@@ -245,7 +252,7 @@
       </th>
       <th scope="col">
         <input (input)="SearchLastName()" [(ngModel)]="searchLastName" class="form-control"
-               placeholder="Last name" type="text">
+               placeholder="Last name" type="text" (focusout)="resetSearch()">
         <svg (click)="order('lastName')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
              width="16" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -255,7 +262,7 @@
       </th>
       <th scope="col">
         <input (input)="SearchUserName()" [(ngModel)]="searchusername" class="form-control"
-               placeholder="User name" type="text">
+               placeholder="User name" type="text" (focusout)="resetSearch()">
         <svg (click)="order('userName')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
              width="16" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -265,7 +272,7 @@
       </th>
       <th scope="col">
         <input (input)="SearchEmail()" [(ngModel)]="searchemail" class="form-control" placeholder="Email"
-               style="width: 175px" type="text">
+               style="width: 175px" type="text" (focusout)="resetSearch()">
         <svg (click)="order('email')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
              width="16" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -276,7 +283,7 @@
       <th scope="col">Password hash</th>
       <th scope="col">
         <input (input)="SearchStatus()" [(ngModel)]="searchstatus" class="form-control"
-               placeholder="Status" type="text">
+               placeholder="Status" type="text" (focusout)="resetSearch()">
         <svg (click)="order('status')" class="bi bi-arrow-down-up" fill="currentColor" height="16" viewBox="0 0 16 16"
              width="16" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -339,7 +346,7 @@
         </button>
       </td>
     </tr>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <pagination-controls style="position: absolute;" (pageChange)="p = $event"></pagination-controls>
     </tbody>
   </table>
 </div>

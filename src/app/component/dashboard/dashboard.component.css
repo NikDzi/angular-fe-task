@@ -11,6 +11,10 @@ tr input {
   display: inline;
 }
 
+td,th{
+  overflow: hidden;
+}
+
 th svg {
   margin-left: 5px;
 }

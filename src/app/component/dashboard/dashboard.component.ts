@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   searchemail: string = '';
   searchstatus: string = '';
   userDeleteList: User[] = [];
-
+  emailRegex:string='^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
   permissionListMap: Map<number, string> = new Map();
   isDescOrder: boolean = true;
 
@@ -168,6 +168,7 @@ export class DashboardComponent implements OnInit {
     this.searchusername = '';
     this.searchemail = '';
     this.searchstatus = '';
+    this.ngOnInit();
   }
 
   SearchFirstName() {
@@ -223,5 +224,23 @@ export class DashboardComponent implements OnInit {
         return res.email.toLowerCase().match(this.searchstatus.toLowerCase());
       });
     }
+  }
+
+  getValueForPassword(value:string) {
+    this.userObject.password=value;
+  }
+
+  getValueForUserName(value: string) {
+    this.userObject.userName=value;
+
+  }
+
+  getValueForFirstName(value: string) {
+    this.userObject.firstName=value;
+  }
+
+  getValueForLastName(value: string) {
+    this.userObject.lastName=value;
+
   }
 }
