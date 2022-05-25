@@ -16,6 +16,7 @@ td,th{
 }
 
 th svg {
+  cursor: pointer;
   margin-left: 5px;
 }
 
